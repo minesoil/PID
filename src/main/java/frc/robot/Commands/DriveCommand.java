@@ -6,10 +6,10 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Subsystem.DriveSubsystem;
 
 public class DriveCommand extends Command {
-    private final DriveSubsystem driveSubsystem = new DriveSubsystem();
+    private final DriveSubsystem driveSubsystem;
     private final Supplier<Double> speedFunction, turnFunction;
     public DriveCommand(DriveSubsystem subsystem, Supplier<Double> SpeedFunction, Supplier<Double> TurnFunction) {
-        // d riveSubsystem = subsystem;
+        driveSubsystem = subsystem;
         speedFunction = SpeedFunction;
         turnFunction = TurnFunction;
         addRequirements(subsystem);
