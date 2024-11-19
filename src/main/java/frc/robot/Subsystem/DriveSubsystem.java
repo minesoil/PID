@@ -5,6 +5,7 @@ import com.revrobotics.CANSparkBase.ControlType;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.TankPID;
 
@@ -16,7 +17,6 @@ public class DriveSubsystem extends SubsystemBase {
         motorRight.restoreFactoryDefaults();
         motorLeft.setIdleMode(IdleMode.kBrake);
         motorRight.setIdleMode(IdleMode.kBrake);
-
         motorLeft.getPIDController().setP(TankPID.Kp);
         motorLeft.getPIDController().setI(TankPID.Ki);
         motorLeft.getPIDController().setD(TankPID.Kd);
@@ -34,9 +34,20 @@ public class DriveSubsystem extends SubsystemBase {
     //new drive method
     public void drive(double leftSpeed, double rightSpeed){
 
+        leftSpeed = DeadBand(leftSpeed, 0.05);
+        rightSpeed = DeadBand(rightSpeed, 0.05);
+
         motorLeft.getPIDController().setReference(leftSpeed, ControlType.kVelocity,0);
         motorRight.getPIDController().setReference(rightSpeed, ControlType.kVelocity,0);
         
+        
+
+    }
+    private double DeadBand(double value, double deadband) {
+        if(Math.abs(value)<deadband) {
+            return 0.0;
+        }
+        return value;
 
     }
 

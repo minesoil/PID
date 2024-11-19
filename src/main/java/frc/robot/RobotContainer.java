@@ -18,7 +18,7 @@ public class RobotContainer {
       new DriveCommand(
         driveSubsystem,
         () -> -driverController.getLeftY(),
-        () -> -driverController.getRightX()
+        () -> driverController.getRightX()
       ));
     configureBindings();
   }
